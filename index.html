@@ -318,7 +318,6 @@
             height: auto;
             max-height: 550px;
             object-fit: cover;
-            /* Bentuk tidak kotak: kombinasi border-radius asimetris + clip-path */
             border-radius: 42% 58% 70% 30% / 44% 30% 70% 56%;
             box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.7);
             transform: scale(1) rotate(0deg);
@@ -335,7 +334,6 @@
             box-shadow: 0 40px 50px -10px #000000cc;
         }
 
-        /* Efek bingkai dekoratif di belakang gambar */
         .hero-image::before {
             content: '';
             position: absolute;
@@ -418,36 +416,213 @@
             font-size: 1.1rem;
         }
 
-        /* tentang */
+        /* ===== TENTANG PERUSAHAAN - REDESIGN ===== */
+        .about-section {
+            padding: 80px 0;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            color: white;
+        }
+
+        /* Background pattern */
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/><circle cx="50" cy="50" r="60" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="2"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Animated circles */
+        .about-section .bg-circle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .about-section .circle1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -50px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .about-section .circle2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .about-section .circle3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 30%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+        }
+
         .about-grid {
             display: flex;
-            gap: 40px;
-            align-items: center;
+            gap: 50px;
+            align-items: stretch;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
         .about-content {
-            flex: 2 1 300px;
+            flex: 2 1 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .about-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-content h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #ffd966;
+            border-radius: 4px;
+        }
+
+        .about-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-content p:last-of-type {
+            margin-bottom: 0;
+            font-style: italic;
+            border-left: 4px solid #ffd966;
+            padding-left: 20px;
         }
 
         .about-highlight {
-            flex: 1 1 250px;
-            background: white;
-            padding: 25px;
-            border-radius: 24px;
-            box-shadow: 0 20px 30px -10px rgba(0,20,80,0.1);
+            flex: 1 1 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .highlight-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
-            gap: 15px;
-            margin: 20px 0;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .highlight-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 217, 102, 0.5);
+        }
+
+        .highlight-item:hover::before {
+            left: 100%;
         }
 
         .highlight-item i {
-            font-size: 28px;
-            color: #2563eb;
+            font-size: 40px;
+            color: #ffd966;
+            background: rgba(255, 255, 255, 0.1);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
+
+        .highlight-item:hover i {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(255, 217, 102, 0.2);
+        }
+
+        .highlight-item div {
+            flex: 1;
+        }
+
+        .highlight-item strong {
+            font-size: 1.2rem;
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .highlight-item div br + * {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        /* Highlight item dengan warna berbeda */
+        .highlight-item:nth-child(1) i { color: #60a5fa; }
+        .highlight-item:nth-child(2) i { color: #34d399; }
+        .highlight-item:nth-child(3) i { color: #fbbf24; }
 
         /* slider */
         .services-slider-section {
@@ -733,6 +908,12 @@
             .about-grid {
                 flex-direction: column;
             }
+            .about-content {
+                padding: 30px;
+            }
+            .about-content h3 {
+                font-size: 2rem;
+            }
             .contact-flex {
                 flex-direction: column;
             }
@@ -780,6 +961,10 @@
             }
             .hero-image img {
                 max-height: 300px;
+            }
+            .highlight-item {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -882,30 +1067,44 @@
         </div>
     </section>
 
-    <!-- tentang perusahaan -->
-    <section class="section" id="tentang" style="background: #f8fafc; padding: 60px 0;">
+    <!-- tentang perusahaan - REDESIGN DENGAN BACKGROUND CANTIK -->
+    <section class="about-section" id="tentang">
+        <!-- Background circles -->
+        <div class="bg-circle circle1"></div>
+        <div class="bg-circle circle2"></div>
+        <div class="bg-circle circle3"></div>
+        
         <div class="container">
-            <div class="section-title">
-                <h2>Tentang Perusahaan</h2>
+            <div class="section-title" style="margin-bottom: 30px;">
+                <h2 style="color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Tentang Perusahaan</h2>
             </div>
             <div class="about-grid">
                 <div class="about-content">
                     <h3>Digital Raya Asia</h3>
-                    <p>kami adalah perusahaan pengembang perangkat lunak yang fokus pada solusi custom, aplikasi mobile, dan sistem enterprise. Dengan semangat "Teknologi untuk Kemajuan", kami membantu startup dan korporasi mentransformasi layanan mereka secara digital.</p>
+                    <p>Kami adalah perusahaan pengembang perangkat lunak yang fokus pada solusi custom, aplikasi mobile, dan sistem enterprise. Dengan semangat <strong>"Teknologi untuk Kemajuan"</strong>, kami membantu startup dan korporasi mentransformasi layanan mereka secara digital.</p>
                     <p>Mendukung kebutuhan digital bisnis Anda dengan solusi yang tepat dan berkelanjutan.</p>
                 </div>
                 <div class="about-highlight">
                     <div class="highlight-item">
                         <i class="fas fa-project-diagram"></i>
-                        <div><strong>Agile & Scrum</strong><br>Adaptif dan iteratif</div>
+                        <div>
+                            <strong>Agile & Scrum</strong>
+                            <span style="color: rgba(255,255,255,0.8);">Adaptif dan iteratif</span>
+                        </div>
                     </div>
                     <div class="highlight-item">
                         <i class="fas fa-shield-alt"></i>
-                        <div><strong>Keamanan Data</strong><br>Sertifikasi ISO 27001</div>
+                        <div>
+                            <strong>Keamanan Data</strong>
+                            <span style="color: rgba(255,255,255,0.8);">Sertifikasi ISO 27001</span>
+                        </div>
                     </div>
                     <div class="highlight-item">
                         <i class="fas fa-headset"></i>
-                        <div><strong>Dukungan 24/7</strong><br>Maintenance tanggap</div>
+                        <div>
+                            <strong>Dukungan 24/7</strong>
+                            <span style="color: rgba(255,255,255,0.8);">Maintenance tanggap</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1043,38 +1242,26 @@
             slidesPerView: 1,
             spaceBetween: 20,
             loop: true,
-            speed: 2500, // Kecepatan transisi (semakin kecil semakin cepat)
+            speed: 2500,
             autoplay: {
-                delay: 0, // Tidak ada delay antar slide
-                disableOnInteraction: false, // Tetap berjalan setelah interaksi user
-                pauseOnMouseEnter: false, // Tidak pause saat hover
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
                 stopOnLastSlide: false,
                 waitForTransition: false,
             },
             freeMode: false,
-            allowTouchMove: true, // Tetap izinkan user menggeser manual
+            allowTouchMove: true,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
                 dynamicBullets: true,
             },
             breakpoints: {
-                640: { 
-                    slidesPerView: 2, 
-                    spaceBetween: 20 
-                },
-                768: { 
-                    slidesPerView: 2, 
-                    spaceBetween: 25 
-                },
-                1024: { 
-                    slidesPerView: 3, 
-                    spaceBetween: 30 
-                },
-                1200: { 
-                    slidesPerView: 4, 
-                    spaceBetween: 30 
-                },
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                768: { slidesPerView: 2, spaceBetween: 25 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+                1200: { slidesPerView: 4, spaceBetween: 30 },
             },
         });
 
