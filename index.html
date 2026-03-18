@@ -72,6 +72,8 @@
             gap: 2px;
             height: 120%;
             max-width: 70%;
+            cursor: pointer;
+            text-decoration: none;
         }
 
         .logo-img {
@@ -82,6 +84,11 @@
             display: block;
             object-fit: contain;
             flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
         }
 
         .logo span {
@@ -95,6 +102,11 @@
             max-width: 300px;
             line-height: 1.2;
             letter-spacing: -0.02em;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover span {
+            color: #ffd966;
         }
 
         .nav-links {
@@ -128,15 +140,25 @@
             font-weight: 600;
             color: white;
             transition: 0.2s;
-            cursor: default;
+            cursor: pointer;
             font-size: 0.95rem;
             white-space: nowrap;
             flex-shrink: 0;
             height: fit-content;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
         }
 
         .btn-outline i {
             margin-right: 6px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: #ffd966;
+            color: #ffd966;
         }
 
         .hamburger {
@@ -205,6 +227,7 @@
             font-weight: 600;
             display: inline-block;
             font-size: 1.1rem;
+            text-decoration: none;
         }
 
         /* hero section - dengan gambar samping BENTUK UNIK */
@@ -283,17 +306,25 @@
             border-radius: 60px;
             font-weight: 600;
             font-size: 1rem;
-            cursor: default;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
+            border: none;
+            transition: all 0.3s ease;
         }
 
         .btn-primary {
             background: #2563eb;
-            border: none;
             color: white;
             box-shadow: 0 10px 20px -8px #1e3a8a;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -8px #1e3a8a;
         }
 
         .btn-outline-light {
@@ -301,6 +332,13 @@
             border: 1.5px solid rgba(255,255,255,0.8);
             color: white;
             backdrop-filter: blur(10px);
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: #ffd966;
+            color: #ffd966;
         }
 
         /* HERO IMAGE DENGAN BENTUK UNIK (TIDAK KOTAK) */
@@ -671,33 +709,305 @@
             color: #2563eb;
         }
 
-        /* portofolio */
+        /* ===== PORTOFOLIO - REDESIGN DENGAN BACKGROUND CANTIK ===== */
+        .portfolio-section {
+            padding: 80px 0;
+            position: relative;
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        /* Animated background particles */
+        .portfolio-section .portfolio-bg-particles {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 40%);
+            z-index: 1;
+        }
+
+        /* Geometric pattern */
+        .portfolio-section .portfolio-bg-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.02) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.02) 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            z-index: 1;
+            opacity: 0.5;
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { background-position: 0 0, 0 20px, 20px -20px, -20px 0px; }
+            100% { background-position: 40px 40px, 40px 60px, 60px 20px, 20px 40px; }
+        }
+
+        /* Floating orbs */
+        .portfolio-section .portfolio-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 1;
+            opacity: 0.4;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .portfolio-section .orb1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .portfolio-section .orb2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        .portfolio-section .orb3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+            top: 50%;
+            left: 30%;
+            animation-delay: -2s;
+            opacity: 0.3;
+        }
+
+        .portfolio-section .orb4 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+            top: 20%;
+            right: 10%;
+            animation-delay: -7s;
+            opacity: 0.3;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Animated lines */
+        .portfolio-section .portfolio-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        .portfolio-section .portfolio-lines::before,
+        .portfolio-section .portfolio-lines::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2563eb, #7c3aed, #2563eb, transparent);
+            top: 30%;
+            left: -50%;
+            animation: lineMove 8s linear infinite;
+        }
+
+        .portfolio-section .portfolio-lines::after {
+            top: 70%;
+            width: 150%;
+            left: -25%;
+            animation: lineMove 12s linear infinite reverse;
+        }
+
+        @keyframes lineMove {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(50%) rotate(0deg); }
+        }
+
+        /* Section title dengan warna putih */
+        .portfolio-section .section-title h2 {
+            color: white;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .portfolio-section .section-title h2:after {
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #2563eb);
+            width: 100px;
+            height: 4px;
+        }
+
         .project-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 3;
         }
 
         .project-item {
-            background: #f8fafd;
-            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px 25px;
             border-radius: 30px;
-            flex: 1 1 160px;
             text-align: center;
-            border: 1px solid #eef2f6;
-            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .project-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #2563eb);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .project-item::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: all 0.5s ease;
         }
 
         .project-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .project-item:hover::after {
+            transform: scale(2);
+            opacity: 0.3;
+        }
+
+        .project-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .project-item:hover .project-icon-wrapper {
+            transform: rotate(5deg) scale(1.1);
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
         }
 
         .project-item i {
-            font-size: 40px;
-            color: #2563eb;
-            margin-bottom: 15px;
+            font-size: 48px;
+            color: white;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .project-item:hover i {
+            color: white;
+            transform: scale(1.1);
+            filter: drop-shadow(0 5px 15px rgba(255,255,255,0.5));
+        }
+
+        .project-item h4 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .project-item:hover h4 {
+            color: white;
+            transform: translateY(-3px);
+            text-shadow: 0 5px 15px rgba(37, 99, 235, 0.5);
+        }
+
+        .project-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .project-item:hover .project-badge {
+            background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
+            transform: scale(1.05) translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Efek shimmer untuk setiap card */
+        .project-item .shimmer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .project-item:hover .shimmer {
+            transform: translateX(100%);
         }
 
         /* nilai inti */
@@ -927,6 +1237,10 @@
             .logo-img {
                 max-height: 60px;
             }
+            .project-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -966,6 +1280,19 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .project-item {
+                padding: 25px 15px;
+            }
+            .project-icon-wrapper {
+                width: 80px;
+                height: 80px;
+            }
+            .project-item i {
+                font-size: 36px;
+            }
+            .project-item h4 {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -973,7 +1300,8 @@
     <!-- navbar HITAM TRANSPARAN - HEIGHT FIX 80px -->
     <nav class="navbar">
         <div class="container">
-            <div class="logo">
+            <!-- Logo bisa diklik untuk kembali ke atas / home -->
+            <a href="#" class="logo" id="logoLink">
                 <img 
                     class="logo-img" 
                     src="image/logo-digital-raya-asia.png" 
@@ -981,7 +1309,8 @@
                     style="max-height: 300px; max-width: 300px;"
                 >
                 <span>Digital Raya Asia</span>
-            </div>
+            </a>
+            
             <div class="nav-links">
                 <a href="#">Beranda</a>
                 <a href="#tentang">Tentang</a>
@@ -989,9 +1318,11 @@
                 <a href="#portofolio">Portofolio</a>
                 <a href="#kontak">Kontak</a>
             </div>
-            <div class="btn-outline">
+            
+            <!-- Tombol Hubungi Kami dengan link WA -->
+            <a href="https://wa.me/6281283885569" target="_blank" class="btn-outline">
                 <i class="fas fa-phone-alt"></i>0812 8388 5569
-            </div>
+            </a>
 
             <!-- Hamburger icon -->
             <div class="hamburger" id="hamburgerBtn">
@@ -1017,7 +1348,7 @@
     </div>
 
     <!-- hero section - dengan gambar samping BENTUK UNIK -->
-    <section class="hero">
+    <section class="hero" id="beranda">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="container">
@@ -1025,8 +1356,9 @@
                 <h1>Solusi Tepat mendukung kebutuhan digital <span>Bisnis Anda</span></h1>
                 <p>Apapun kebutuhan digital bisnis Anda, kami siap membantu dengan solusi yang dirancang untuk mendorong pertumbuhan usaha Anda.</p>
                 <div class="hero-buttons">
-                    <span class="btn-primary"><i class="fas fa-cog"></i> Lihat Layanan</span>
-                    <span class="btn-outline-light"><i class="fas fa-headset"></i> Hubungi Kami</span>
+                    <a href="#layanan" class="btn-primary"><i class="fas fa-cog"></i> Lihat Layanan</a>
+                    <!-- Tombol Hubungi Kami di hero section mengarah ke WA -->
+                    <a href="https://wa.me/6281283885569" target="_blank" class="btn-outline-light"><i class="fas fa-headset"></i> Hubungi Kami</a>
                 </div>
             </div>
             <!-- GAMBAR SAMPING DENGAN BENTUK MELENGKUNG UNIK -->
@@ -1168,17 +1500,54 @@
         </div>
     </section>
 
-    <!-- portofolio -->
-    <section class="section" id="portofolio" style="background:white; padding:60px 0;">
+    <!-- portofolio - REDESIGN DENGAN BACKGROUND SUPER CANTIK -->
+    <section class="portfolio-section" id="portofolio">
+        <!-- Background elements -->
+        <div class="portfolio-bg-particles"></div>
+        <div class="portfolio-bg-pattern"></div>
+        <div class="portfolio-orb orb1"></div>
+        <div class="portfolio-orb orb2"></div>
+        <div class="portfolio-orb orb3"></div>
+        <div class="portfolio-orb orb4"></div>
+        <div class="portfolio-lines"></div>
+        
         <div class="container">
             <div class="section-title">
                 <h2>Portofolio Terkini</h2>
             </div>
             <div class="project-grid">
-                <div class="project-item"><i class="fas fa-wallet"></i><h4>Fintech Rakyat</h4><p class="label">Mobile App</p></div>
-                <div class="project-item"><i class="fas fa-hospital-alt"></i><h4>SiSehat</h4><p class="label">Klinik Management</p></div>
-                <div class="project-item"><i class="fas fa-store"></i><h4>AsiaMart</h4><p class="label">E‑commerce</p></div>
-                <div class="project-item"><i class="fas fa-chart-line"></i><h4>LogiSmart</h4><p class="label">Dashboard & IoT</p></div>
+                <div class="project-item">
+                    <div class="shimmer"></div>
+                    <div class="project-icon-wrapper">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h4>Fintech Rakyat</h4>
+                    <span class="project-badge">Mobile App</span>
+                </div>
+                <div class="project-item">
+                    <div class="shimmer"></div>
+                    <div class="project-icon-wrapper">
+                        <i class="fas fa-hospital-alt"></i>
+                    </div>
+                    <h4>SiSehat</h4>
+                    <span class="project-badge">Klinik Management</span>
+                </div>
+                <div class="project-item">
+                    <div class="shimmer"></div>
+                    <div class="project-icon-wrapper">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h4>AsiaMart</h4>
+                    <span class="project-badge">E‑commerce</span>
+                </div>
+                <div class="project-item">
+                    <div class="shimmer"></div>
+                    <div class="project-icon-wrapper">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>LogiSmart</h4>
+                    <span class="project-badge">Dashboard & IoT</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1298,6 +1667,20 @@
                 mobileMenu.classList.remove('active');
             }
         });
+
+        // Fungsi untuk klik logo - kembali ke atas
+        document.getElementById('logoLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            // Tutup mobile menu jika terbuka
+            mobileMenu.classList.remove('active');
+        });
+
+        // Tambahan: Untuk semua tombol Hubungi Kami, pastikan mengarah ke WA
+        // (sudah diatur di HTML dengan target="_blank")
     </script>
 </body>
 </html>
