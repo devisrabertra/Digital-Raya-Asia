@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Digital Raya Asia</title>
+    <!-- Font Awesome 5 (CDN) -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <!-- Google Fonts: Poppins + Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS (untuk slider) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* header / navbar - HITAM TRANSPARAN */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            height: 80px; /* Tinggi header FIX 80px */
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%; /* Full height dari navbar */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 2px; /* GAP DIPERKECIL DARI 12px MENJADI 4px AGAR LEBIH DEKAT */
+            height: 120%; /* Tinggi penuh mengikuti navbar */
+            max-width: 70%;
+        }
+
+        /* GANTI DENGAN LOGO GAMBAR DARI FOLDER IMAGE */
+        .logo-img {
+            height: 120%; /* Mengikuti tinggi container */
+            width: auto;
+            max-height: 70px; /* Maksimal tinggi 70px (masih muat di navbar 80px) */
+            max-width: 200px; /* BATAS MAKSIMAL LEBAR */
+            display: block;
+            object-fit: contain; /* MENJAGA ASPEK RATIO */
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            white-space: nowrap;
+            flex-shrink: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+            line-height: 1.2; /* Mengatur line height agar rapi */
+            letter-spacing: -0.02em; /* Sedikit merapatkan huruf */
+            margin-left: 0; /* Pastikan tidak ada margin */
+            padding-left: 0; /* Pastikan tidak ada padding */
+        }
+
+        /* desktop navigation */
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 500;
+            flex-shrink: 0;
+            height: 100%;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.2s;
+            font-size: 1rem;
+            white-space: nowrap;
+            line-height: 80px; /* Sama dengan tinggi navbar */
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        .btn-outline {
+            border: 1.5px solid white;
+            background: transparent;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            transition: 0.2s;
+            cursor: default;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            height: fit-content;
+        }
+
+        .btn-outline i {
+            margin-right: 6px;
+        }
+
+        /* HAMBURGER MENU (mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1100;
+            flex-shrink: 0;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 80px; /* Sama dengan tinggi navbar */
+            left: 0;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transform: translateY(-150%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu .nav-links-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .mobile-menu .nav-links-mobile a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .mobile-menu .btn-outline-mobile {
+            margin-top: 15px;
+            border: 1.5px solid white;
+            background: transparent;
+            padding: 12px 28px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+
+        /* hero section */
+        .hero {
+            padding: 0;
+            background: #0b1423;
+            position: relative;
+            isolation: isolate;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: 80px; /* Memberi jarak karena navbar fixed height 80px */
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            filter: brightness(0.5) saturate(1.2);
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(95deg, rgba(0,0,0,0.8) 0%, rgba(0,20,40,0.7) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            padding: 40px 20px 80px;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 800px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 8vw, 3.8rem);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-text h1 span {
+            color: #ffd966;
+        }
+
+        .hero-text p {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 30px;
+            max-width: 650px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-outline-light {
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border: none;
+            color: white;
+            box-shadow: 0 10px 20px -8px #1e3a8a;
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.8);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        /* layanan buttons */
+        .services-showcase {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: #0f172a;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #2563eb;
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+
+        .service-buttons-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0 20px;
+        }
+
+        .service-btn-card {
+            background: #f8fafc;
+            border: 1px solid #e9eef2;
+            border-radius: 28px;
+            padding: 20px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+            min-width: 150px;
+            flex: 1 1 150px;
+        }
+
+        .service-btn-card i {
+            font-size: 36px;
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .service-btn-card h4 {
+            font-size: 1.1rem;
+        }
+
+        /* tentang */
+        .about-grid {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-content {
+            flex: 2 1 300px;
+        }
+
+        .about-highlight {
+            flex: 1 1 250px;
+            background: white;
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 20px 30px -10px rgba(0,20,80,0.1);
+        }
+
+        .highlight-item {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .highlight-item i {
+            font-size: 28px;
+            color: #2563eb;
+        }
+
+        /* slider */
+        .services-slider-section {
+            padding: 40px 0 70px;
+            background: #f2f6fd;
+            overflow: hidden;
+        }
+
+        .swiper {
+            padding: 20px 10px 50px;
+            margin: -20px -10px;
+        }
+
+        .service-slider-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 28px;
+            height: 100%;
+        }
+
+        .service-slider-icon {
+            background: #eef4ff;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .service-slider-icon i {
+            font-size: 36px;
+            color: #2563eb;
+        }
+
+        /* portofolio */
+        .project-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .project-item {
+            background: #f8fafd;
+            padding: 25px;
+            border-radius: 30px;
+            flex: 1 1 160px;
+            text-align: center;
+            border: 1px solid #eef2f6;
+        }
+
+        .project-item i {
+            font-size: 40px;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        /* nilai inti */
+        .values-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .value-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 30px;
+            flex: 1 1 140px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        .value-card i {
+            font-size: 40px;
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        /* kontak */
+        .contact-section {
+            background: linear-gradient(145deg, #0f182a, #101b2b);
+            color: white;
+            border-radius: 40px 40px 0 0;
+            padding: 60px 0 30px;
+            margin-top: 40px;
+        }
+
+        .contact-flex {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .contact-info p {
+            color: #b0c6da;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-info i {
+            width: 25px;
+            color: #3b82f6;
+        }
+
+        .social-links {
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            color: white;
+            background: #1e2b41;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin-right: 10px;
+            display: inline-block;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            transform: translateY(-3px);
+        }
+
+        /* Icon WA khusus dengan efek kedap kedip */
+        .whatsapp-float {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+            box-shadow: 0 8px 15px rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: pulse-wa 1.5s infinite ease-in-out;
+        }
+
+        .whatsapp-float i {
+            font-size: 24px;
+            color: white;
+            width: auto;
+        }
+
+        .whatsapp-float:hover {
+            background: #20b859;
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 12px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Animasi kedap kedip */
+        @keyframes pulse-wa {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 10px 25px rgba(37, 211, 102, 0.8);
+                background: #22c35e;
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            }
+        }
+
+        /* Juga tambahkan efek kedip untuk icon WA di mobile menu */
+        .btn-outline-mobile.whatsapp-mobile {
+            background: #25D366;
+            border-color: #25D366;
+            animation: pulse-wa 1.5s infinite ease-in-out;
+            margin-top: 10px;
+        }
+
+        .btn-outline-mobile.whatsapp-mobile i {
+            margin-right: 8px;
+        }
+
+        .btn-outline-mobile.whatsapp-mobile:hover {
+            background: #20b859;
+        }
+
+        .map-container {
+            flex: 1;
+            min-width: 260px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 220px;
+            display: block;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #273957;
+            padding-top: 25px;
+            margin-top: 40px;
+            color: #94a9c5;
+        }
+
+        /* responsive breakpoints */
+        @media (max-width: 1200px) {
+            .logo span {
+                max-width: 200px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links, .navbar .btn-outline {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .logo span {
+                font-size: 1.3rem;
+                max-width: 180px;
+            }
+            .logo {
+                max-width: 80%;
+                gap: 4px; /* Tetap 4px di tablet */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero .container {
+                padding: 20px 20px 60px;
+            }
+            .about-grid {
+                flex-direction: column;
+            }
+            .contact-flex {
+                flex-direction: column;
+            }
+            .map-container {
+                width: 100%;
+            }
+            .logo span {
+                font-size: 1.2rem;
+                max-width: 150px;
+            }
+            .logo-img {
+                max-height: 60px;
+            }
+            .logo {
+                gap: 3px; /* Lebih dekat di mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 75%;
+                gap: 2px; /* Paling dekat di HP kecil */
+            }
+            .logo span {
+                font-size: 1rem;
+                max-width: 120px;
+            }
+            .logo-img {
+                max-height: 50px;
+                max-width: 120px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .btn-primary, .btn-outline-light {
+                width: 100%;
+                justify-content: center;
+            }
+            .service-btn-card {
+                min-width: 100%;
+            }
+            .service-buttons-grid {
+                flex-direction: column;
+            }
+            .contact-info h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Untuk pengaturan gap yang lebih presisi */
+        .logo-tight {
+            gap: 2px !important;
+        }
+        
+        .logo-very-tight {
+            gap: 0px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- navbar HITAM TRANSPARAN - HEIGHT FIX 80px -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <!-- 
+                    GANTI DENGAN LOGO GAMBAR DARI FOLDER IMAGE
+                    - Ukuran logo akan mengikuti max-height: 70px
+                    - Jika ingin lebih besar, ubah max-height di CSS atau tambahkan inline style
+                -->
+                <img 
+                    class="logo-img" 
+                    src="image/logo-digital-raya-asia.png" 
+                    alt="Digital Raya Asia Logo"
+                    style="max-height: 300px; max-width: 300px;" /* GANTI SESUAI KEINGINAN */
+                >
+                <span>Digital Raya Asia</span>
+            </div>
+            <div class="nav-links">
+                <a href="#">Beranda</a>
+                <a href="#tentang">Tentang</a>
+                <a href="#layanan">Layanan</a>
+                <a href="#portofolio">Portofolio</a>
+                <a href="#kontak">Kontak</a>
+            </div>
+            <div class="btn-outline">
+                <i class="fas fa-phone-alt"></i>0812 8388 5569
+            </div>
+
+            <!-- Hamburger icon -->
+            <div class="hamburger" id="hamburgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown dengan WA berkedip -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="nav-links-mobile">
+            <a href="#">Beranda</a>
+            <a href="#tentang">Tentang</a>
+            <a href="#layanan">Layanan</a>
+            <a href="#portofolio">Portofolio</a>
+            <a href="#kontak">Kontak</a>
+            <!-- Nomor telepon biasa -->
+            <div class="btn-outline-mobile">
+                <i class="fas fa-phone-alt"></i> 0812 8388 5569
+            </div>
+            <!-- Tombol WhatsApp berkedip di mobile -->
+            <a href="https://wa.me/6281283885569" target="_blank" class="btn-outline-mobile whatsapp-mobile">
+                <i class="fab fa-whatsapp"></i> Chat WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- hero section - dengan margin-top 80px -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-text">
+                <h1>Solusi Tepat mendukung kebutuhan digital <span>Bisnis Anda</span></h1>
+                <p>Apapun kebutuhan digital bisnis Anda, kami siap membantu dengan solusi yang dirancang untuk mendorong pertumbuhan usaha Anda.</p>
+                <div class="hero-buttons">
+                    <span class="btn-primary"><i class="fas fa-cog"></i> Lihat Layanan</span>
+                    <span class="btn-outline-light"><i class="fas fa-headset"></i> Hubungi Kami</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Layanan Buttons -->
+    <section class="services-showcase">
+        <div class="container">
+            <div class="section-title">
+                <h2>Layanan Kami</h2>
+            </div>
+            <div class="service-buttons-grid">
+                <div class="service-btn-card">
+                    <i class="fas fa-building"></i>
+                    <h4>Company Profile</h4>
+                </div>
+                <div class="service-btn-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h4>Landing Page</h4>
+                </div>
+                <div class="service-btn-card">
+                    <i class="fas fa-sitemap"></i>
+                    <h4>Instansi / Organisasi</h4>
+                </div>
+                <div class="service-btn-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Personal Brand</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- tentang perusahaan -->
+    <section class="section" id="tentang" style="background: #f8fafc; padding: 60px 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang Perusahaan</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Digital Raya Asia</h3>
+                    <p>kami adalah perusahaan pengembang perangkat lunak yang fokus pada solusi custom, aplikasi mobile, dan sistem enterprise. Dengan semangat "Teknologi untuk Kemajuan", kami membantu startup dan korporasi mentransformasi layanan mereka secara digital.</p>
+                    <p>Mendukung kebutuhan digital bisnis Anda dengan solusi yang tepat dan berkelanjutan.</p>
+                </div>
+                <div class="about-highlight">
+                    <div class="highlight-item">
+                        <i class="fas fa-project-diagram"></i>
+                        <div><strong>Agile & Scrum</strong><br>Adaptif dan iteratif</div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div><strong>Keamanan Data</strong><br>Sertifikasi ISO 27001</div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-headset"></i>
+                        <div><strong>Dukungan 24/7</strong><br>Maintenance tanggap</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- layanan unggulan - SLIDER OTOMATIS -->
+    <section class="services-slider-section" id="layanan">
+        <div class="container">
+            <div class="section-title">
+                <h2>Layanan Unggulan</h2>
+            </div>
+            
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><div class="service-slider-card"><div class="service-slider-icon"><i class="fas fa-mobile-alt"></i></div><h3>Aplikasi Mobile</h3><p>iOS & Android (React Native, Flutter) dengan UI/UX modern.</p></div></div>
+                    <div class="swiper-slide"><div class="service-slider-card"><div class="service-slider-icon"><i class="fas fa-cloud"></i></div><h3>Sistem Cloud</h3><p>Microservice, deployment AWS/Google Cloud.</p></div></div>
+                    <div class="swiper-slide"><div class="service-slider-card"><div class="service-slider-icon"><i class="fas fa-laptop-code"></i></div><h3>Web Development</h3><p>Company, e-commerce dengan Laravel, Vue, Next.</p></div></div>
+                    <div class="swiper-slide"><div class="service-slider-card"><div class="service-slider-icon"><i class="fas fa-robot"></i></div><h3>AI & Otomasi</h3><p>Machine learning, chatbot, otomatisasi proses.</p></div></div>
+                    <div class="swiper-slide"><div class="service-slider-card"><div class="service-slider-icon"><i class="fas fa-database"></i></div><h3>Big Data Analytics</h3><p>Data besar, visualisasi, business intelligence.</p></div></div>
+                    <div class="swiper-slide"><div class="service-slider-card"><div class="service-slider-icon"><i class="fas fa-shield-alt"></i></div><h3>Cyber Security</h3><p>Audit keamanan, penetration testing.</p></div></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- portofolio -->
+    <section class="section" id="portofolio" style="background:white; padding:60px 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Portofolio Terkini</h2>
+            </div>
+            <div class="project-grid">
+                <div class="project-item"><i class="fas fa-wallet"></i><h4>Fintech Rakyat</h4><p class="label">Mobile App</p></div>
+                <div class="project-item"><i class="fas fa-hospital-alt"></i><h4>SiSehat</h4><p class="label">Klinik Management</p></div>
+                <div class="project-item"><i class="fas fa-store"></i><h4>AsiaMart</h4><p class="label">E‑commerce</p></div>
+                <div class="project-item"><i class="fas fa-chart-line"></i><h4>LogiSmart</h4><p class="label">Dashboard & IoT</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- nilai perusahaan -->
+    <section class="section" style="background:#f8fafc; padding:60px 0;">
+        <div class="container">
+            <div class="section-title"><h2>Nilai Inti</h2></div>
+            <div class="values-grid">
+                <div class="value-card"><i class="fas fa-rocket"></i><h4>Inovatif</h4><p style="color: #64748b;">Solusi kreatif</p></div>
+                <div class="value-card"><i class="fas fa-handshake"></i><h4>Integritas</h4><p style="color: #64748b;">Transparan</p></div>
+                <div class="value-card"><i class="fas fa-users"></i><h4>Kolaboratif</h4><p style="color: #64748b;">Bersama klien</p></div>
+                <div class="value-card"><i class="fas fa-medal"></i><h4>Kualitas</h4><p style="color: #64748b;">Code excellence</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- kontak dengan MAP BUKIT PERMAI EXTENSION dan ICON WA BERKEDIP -->
+    <section class="contact-section" id="kontak">
+        <div class="container">
+            <div class="contact-flex">
+                <div class="contact-info">
+                    <h3>Hubungi Kami</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Bukit Permai Extension, Citra Indah City, Bogor</p>
+                    <p><i class="fas fa-phone"></i> 0812 8388 5569</p>
+                    <p><i class="fas fa-envelope"></i> hello@digitalrayaasia.id</p>
+                    
+                    <!-- TOMBOL WHATSAPP BERKEDIP - LANGSUNG KE NOMOR -->
+                    <a href="https://wa.me/6281283885569" target="_blank" class="whatsapp-float">
+                        <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                    </a>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <!-- Google Maps Embed untuk Bukit Permai Extension, Citra Indah City -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.1551051766323!2d107.04443631536918!3d-6.446692195321933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6997ae1b163f5f%3A0x3600619b8f219151!2sBukit%20Permai%20Extension%20Citra%20Indah%20City!5e0!3m2!1sid!2sid!4v1712323456789!5m2!1sid!2sid" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 PT Digital Raya Asia. All rights reserved.
+            </div>
+        </div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Swiper slider - otomatis berjalan terus
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            speed: 1000,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+                stopOnLastSlide: false,
+                waitForTransition: false,
+            },
+            freeMode: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                768: { slidesPerView: 2, spaceBetween: 25 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+                1200: { slidesPerView: 4, spaceBetween: 30 },
+            },
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Tutup mobile menu saat link diklik
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                // Tutup mobile menu jika terbuka
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Tutup menu saat klik di luar (opsional)
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
